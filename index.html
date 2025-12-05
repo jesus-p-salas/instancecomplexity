@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Instance Complexity & Structure-Aware Algorithms</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Instance complexity and structure-aware algorithms: a research program on beyond-worst-case analysis, certificate-sensitive solvers, and adaptive runtimes." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark">IC</span>
+        <span class="brand-text">Instance Complexity</span>
+      </div>
+      <nav class="site-nav">
+        <a href="#overview">Overview</a>
+        <a href="#why">Why it matters</a>
+        <a href="#research">Research themes</a>
+        <a href="#papers">Papers</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Instance Complexity &amp; Structure-Aware Algorithms</h1>
+          <p class="hero-lead">
+            A research program on algorithms whose running time adapts
+            to the internal structure of each input, not just the worst case.
+          </p>
+          <div class="hero-actions">
+            <a href="#overview" class="btn primary">Read the overview</a>
+            <a href="#papers" class="btn ghost">Browse papers</a>
+          </div>
+        </div>
+        <div class="hero-aside">
+          <div class="hero-card">
+            <h2>Beyond worst-case analysis</h2>
+            <p>
+              Instance complexity refines classical complexity theory by asking:
+              <em>how hard is this particular instance</em>, given the best
+              specialized algorithm that never lies?
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="overview" class="section">
+        <div class="section-header">
+          <h2>What is Instance Complexity?</h2>
+          <p>
+            Instance complexity, introduced by Orponen, Ko, Sch&ouml;ning, and Watanabe (1994),
+            measures the size of the smallest &ldquo;special-purpose&rdquo; program that correctly
+            decides membership for a single input while never misclassifying any other input.
+          </p>
+        </div>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>A per-instance view of hardness</h3>
+            <p>
+              Classical complexity classes (P, NP, etc.) quantify hardness over
+              whole languages. Instance complexity instead attaches a complexity
+              value to each individual input, capturing when a &ldquo;small&rdquo; specialized
+              solver exists even for NP-complete problems.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Certificate-sensitive algorithms</h3>
+            <p>
+              In practice, many NP-hard instances are structurally redundant:
+              their solution space collapses onto a much smaller effective search space.
+              Certificate-sensitive algorithms exploit this by making runtime depend
+              on the size of the <em>actual</em> certificate space explored, not on all
+              syntactic possibilities.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="why" class="section alt">
+        <div class="section-header">
+          <h2>Why it matters for algorithms</h2>
+          <p>
+            Real-world inputs are rarely adversarial. They exhibit collisions, structure,
+            and low effective dimension. Instance complexity gives us a language to talk
+            about algorithms that automatically adapt to that structure.
+          </p>
+        </div>
+
+        <div class="grid three">
+          <div class="card">
+            <h3>Beyond worst-case guarantees</h3>
+            <p>
+              Standard worst-case bounds treat all inputs of size <code>n</code> as equally
+              hard. Structure-aware solvers instead tie their runtime to an instance
+              parameter such as the number of unique states reached during search.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Sub-2<sup>n/2</sup> Subset Sum</h3>
+            <p>
+              For Subset Sum, a canonical meet-in-the-middle algorithm runs in
+              time O*(2<sup>n/2</sup>). A structure-aware, certificate-sensitive solver
+              can run in time O*(U &middot; poly(n)), where <code>U</code> is the number of
+              distinct subset sums actually realized by the instance, and can even
+              guarantee strictly sub-2<sup>n/2</sup> enumeration via controlled aliasing.
+            </p>
+          </div>
+          <div class="card">
+            <h3>From theory to practice</h3>
+            <p>
+              These ideas connect fine-grained complexity, additive combinatorics, and
+              empirical solver design. They enable algorithms that degrade gracefully on
+              worst-case inputs but exploit structure whenever it is present.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="research" class="section">
+        <div class="section-header">
+          <h2>Research themes</h2>
+          <p>
+            The Instance Complexity program currently focuses on deterministic, structure-aware
+            solvers for classic NP-complete problems and their instance-sensitive analysis.
+          </p>
+        </div>
+
+        <div class="grid three">
+          <article class="card">
+            <h3>Unique-state enumeration</h3>
+            <p>
+              Enumeration frameworks that generate each unique search state exactly once,
+              tracking a canonical representative and pruning all redundant branches online.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Double meet-in-the-middle</h3>
+            <p>
+              Hybrid schemes that combine dynamic programming with meet-in-the-middle,
+              while avoiding heavy sort/merge phases and focusing only on structurally
+              distinct partial solutions.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Controlled aliasing</h3>
+            <p>
+              Techniques that syntactically inject collisions into the search space to
+              collapse combinatorial trees, guaranteeing deterministic, strictly sub-2<sup>n/2</sup>
+              enumeration even on unstructured instances.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="papers" class="section alt">
+        <div class="section-header">
+          <h2>Selected papers</h2>
+          <p>
+            Preprints and extended versions will be linked here as they become available.
+          </p>
+        </div>
+
+        <div class="papers">
+          <article class="paper">
+            <h3>Instance Complexity</h3>
+            <a href="https://dl.acm.org/doi/10.1145/174644.174648">
+              https://dl.acm.org/doi/10.1145/174644.174648
+            </a>
+            <p class="paper-meta">
+              Pekka Orponen, Ker-I Ko, Uwe Schöning, Osamu Watanabe,
+              <em>Instance Complexity</em>, J. ACM 41(1): 96–121 (1994).
+              Introduces instance complexity as a per-instance measure of hardness,
+              defined via the length of the shortest total, A-consistent program that
+              decides the instance without ever misclassifying other inputs.
+            </p>
+            <p class="paper-links">
+              <span class="tag">Journal article</span>
+              <span class="tag">Instance complexity</span>
+              <span class="tag">Kolmogorov complexity</span>
+              <span class="tag">Complexity theory</span>
+            </p>
+          </article>
+          <article class="paper">
+            <h3>Beyond Worst-Case Subset Sum: An Adaptive, Structure-Aware Solver with Sub-2<sup>n/2</sup> Enumeration
+            </h3>
+            <a href="https://arxiv.org/abs/2503.20162">https://arxiv.org/abs/2503.20162</a>
+            <p class="paper-meta">
+              Exact Subset Sum &mdash; unique-state enumeration, double meet-in-the-middle,
+              and controlled aliasing for deterministic sub-2<sup>n/2</sup> enumeration.
+            </p>
+            <p class="paper-links">
+              <span class="tag">Preprint</span>
+              <span class="tag">Subset Sum</span>
+              <span class="tag">Adaptive algorithms</span>
+              <span class="tag">Additive combinatorics</span>
+            </p>
+          </article>
+
+          <article class="paper">
+            <h3>Certificate-Sensitive Subset Sum and the Realization of Instance Complexity</h3>
+            <a href="https://arxiv.org/abs/2507.15511">https://arxiv.org/abs/2507.15511</a>
+            <p class="paper-meta">
+              A companion theory paper connecting the solver's runtime to instance
+              complexity, certificate size, and structural parameters such as additive
+              energy and doubling.
+            </p>
+            <p class="paper-links">
+              <span class="tag">Submitted to STOC'26</span>
+              <span class="tag">Instance complexity</span>
+              <span class="tag">Fine-grained analysis</span>
+            </p>
+          </article>
+
+          <article class="paper">
+            <h3>Extensions to Knapsack and SAT (future work)</h3>
+            <p class="paper-meta">
+              Generalizing certificate-sensitive enumeration to Knapsack and SAT via
+              structure-aware Pareto front enumeration and DPLL-style search.
+            </p>
+            <p class="paper-links">
+              <span class="tag">Knapsack</span>
+              <span class="tag">SAT</span>
+              <span class="tag">Exponential-time algorithms</span>
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="section-header">
+          <h2>About this project</h2>
+        </div>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>InstanceComplexity.org</h3>
+            <p>
+              This site collects research on instance complexity, certificate-sensitive
+              solvers, and structure-aware algorithm design. The goal is to bridge
+              rigorous theory, empirical evaluation, and solver engineering.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Contact &amp; updates</h3>
+            <p>
+              For questions, comments, or collaboration inquiries, please write to
+              <a href="mailto:instancecomplexity@gmail.com">instancecomplexity@gmail.com</a>.
+              Updates on preprints, talks, code, and benchmarks will be posted here as the
+              project evolves.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; 2025 <span id="year"></span> InstanceComplexity.org &middot; All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Set current year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
